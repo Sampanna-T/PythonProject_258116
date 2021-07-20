@@ -3,6 +3,7 @@ import time
 import random
 import sys
 
+#used to delete the current line and move the cursor to the beginning
 def delete_last_line():
     "Use this function to delete the last line in the STDOUT"
 
@@ -12,11 +13,12 @@ def delete_last_line():
     #delete last line
     sys.stdout.write('\x1b[2K')
 
+#displays words after 'delay' seconds
 def display_word(delay):
     global word_list
     global selected_list
 
-    random_no = random.randint(0,len(word_list))
+    random_no = random.randint(0,len(word_list)-1)
     selected_word = word_list[random_no]
     print(selected_word.upper())
     time.sleep(delay)
@@ -24,9 +26,10 @@ def display_word(delay):
     selected_list.append(selected_word.upper())
     delete_last_line()
 
+#starts to count down from 'count' to 1 every 'delay' seconds
 def count_down(delay,count):
-    for i in range(count):
-        print(i+1)
+    for i in range(count,0,-1):
+        print(i)
         time.sleep(delay)
 
 
@@ -50,7 +53,7 @@ while True:
     print("Start memorizing ",level," element/s in",end='\n')
     count_down(1,3)
 
-
+    #prints words to be memorized after every 3 seconds
     for i in range(level):
         print("->",end=" ")
         display_word(3)
